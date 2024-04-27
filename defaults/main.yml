@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-vscodium-installer
+
+vscodium_gpg_key: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+vscodium_gpg_key_fingerprint: 1302 DE60 2318 89FE 1EBA  CADC 5467 8CF7 5A27 8D9C
+
+vscodium_repo_baseurl: https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
