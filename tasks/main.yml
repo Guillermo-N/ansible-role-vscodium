@@ -3,6 +3,7 @@
 
 - name: RedHat OS family installation
   when: ansible_os_family == 'RedHat'
+  become: true
   block:
 
     - name: Import VSCodium gpg key to rpm db
@@ -24,4 +25,46 @@
     - name: Install VSCodium
       ansible.builtin.dnf:
         name: codium
-        state: latest
+        state: present
+
+- name: "Check existance of path: {{ unix_vscodium_user_config }}"
+  ansible.builtin.file:
+    path: "{{ unix_vscodium_user_config }}"
+    state: directory
+    mode: '0700'
+
+- name: Add Microsoft VSCode extension marketplace
+  when: vscode_marketplace
+  ansible.builtin.template:
+    src: vscode_marketplace_product.json.j2
+    dest: "{{ unix_vscodium_user_config }}/product.json"
+    mode: '0644'
+
+- name: Install extensions
+  when: vscodium_extensions | length > 0
+  with_items: "{{ vscodium_extensions }}"
+  ansible.builtin.command:
+    cmd: "codium --install-extension {{ item }}"
+  register: vscode_extensions
+  changed_when: "'already installed' not in vscode_extensions.stdout"
+
+- name: Add custom user settings
+  ansible.builtin.copy:
+    src: "{{ vscodium_settings }}"
+    dest: "{{ unix_vscodium_user_config }}/settings.json"
+    mode: '0644'
+  when: vscodium_settings
+
+- name: Add custom user keybindings
+  ansible.builtin.copy:
+    src: "{{ vscodium_keybindings }}"
+    dest: "{{ unix_vscodium_user_config }}/keybindings.json"
+    mode: '0644'
+  when: vscodium_keybindings
+
+- name: Add custom user tasks
+  ansible.builtin.copy:
+    src: "{{ vscodium_tasks }}"
+    dest: "{{ unix_vscodium_user_config }}/tasks.json"
+    mode: '0644'
+  when: vscodium_tasks
