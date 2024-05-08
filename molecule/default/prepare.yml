@@ -1,0 +1,12 @@
+---
+- name: Prepare playbook
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Install goodies (python3 & gpg) for Debian OS-Family distros
+      ansible.builtin.raw: grep -q "debian" /etc/*-release && apt update && apt install -y python3 gpg
+      args:
+        executable: /bin/bash
+      ignore_errors: true

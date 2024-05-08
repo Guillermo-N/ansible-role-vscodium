@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  tasks:
+
+    - name: Run ansible role VSCodium installer
+      ansible.builtin.include_role:
+        name: guillermo.vscodium
+

@@ -1,0 +1,52 @@
+---
+name: Molecule Test
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  test:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - name: fedora
+            tag: 40
+          - name: almalinux
+            tag: 9
+          - name: ubuntu
+            tag: 24.04
+          - name: debian
+            tag: bookworm
+          - name: debian
+            tag: bullseye
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install molecule molecule-plugins[docker] yamllint ansible-lint
+
+      - name: Install community.docker ansible role
+        run: ansible-galaxy collection install community.docker
+
+      - name: Install ansible.posix ansible role
+        run: ansible-galaxy collection install ansible.posix
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro.name }}
+          MOLECULE_DISTRO_TAG: ${{ matrix.distro.tag }}

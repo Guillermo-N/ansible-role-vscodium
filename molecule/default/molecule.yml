@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: instance
+    image: "${MOLECULE_DISTRO:-ubuntu}:${MOLECULE_DISTRO_TAG:-latest}"
+    privileged: true
+    pre_build_image: true
+scenario:
+  test_sequence:
+    #- dependency
+    #- cleanup
+    #- destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    #- side_effect
+    - verify
+    #- cleanup
+    - destroy
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

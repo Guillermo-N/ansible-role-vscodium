@@ -1,17 +1,54 @@
 VSCodium Installer
 =========
 
-Automates the setup of VSCodium, adding repositories, installing the software, and applying custom configurations.
+[![Molecule Test](https://github.com/Guillermo-N/ansible-vscodium-installer/actions/workflows/CI.yml/badge.svg)](https://github.com/Guillermo-N/ansible-vscodium-installer/actions/workflows/CI.yml)
+
+Automates the setup of [VSCodium](https://vscodium.com/), adding repositories, installing the software, and applying custom configurations.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+At the moment only OS families base on `Debian` and `RedHat` are supported.The following list shows the distributions used for testing, in which the role will work. Other versions and distributions may also work.
+
+Linux distributions:
+- Ubuntu
+  - 24.04(Noble Numbat)
+- Debian
+  - 12(Bookworm)
+  - 11(Bullseye)
+- Almalinux
+  - 9
+- Fedora
+  - 40
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### vscode_marketplace:
+- **Description**: Controls whether to add Microsoft's VSCode extension marketplace.
+- **Required**: No
+- **Default**: `true`
+
+### vscodium_extensions:
+- **Description**: List of extensions to be installed.
+- **Required**: No
+- **Default**: `[]` (empty list)
+- **Notes**: List of VSCode/VSCodium extensions to be installed.
+
+### vscodium_settings:
+- **Description**: JSON file with custom settings.
+- **Required**: No
+- **Default**: `""` (empty string)
+
+### vscodium_keybindings:
+- **Description**: JSON file with custom keybindings.
+- **Required**: No
+- **Default**: `""` (empty string)
+
+### vscodium_tasks:
+- **Description**: JSON file with custom tasks.
+- **Required**: No
+- **Default**: `""` (empty string)
 
 Dependencies
 ------------
@@ -20,19 +57,32 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 
 Example Playbook
 ----------------
+Minimal example:
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: localhost
       roles:
-         - { role: username.rolename, x: 42 }
+        - ansible-vscodium-installer
+
+All variables example:
+
+    - hosts: localhost
+      roles:
+        - ansible-vscodium-installer
+          vscode_marketplace: false
+          vscodium_extensions:
+            - extension.one
+            - extension.two
+            - extension.three
+          vscodium_settings: /path/to/code/settings
+          vscodium_keybindings: /path/to/code/bindings
+          vscodium_tasks: /path/to/code/tasks
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Guillermo N.](https://github.com/Guillermo-N)

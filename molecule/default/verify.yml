@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+
+    - name: Check for binary codium
+      ansible.builtin.stat:
+        path: /usr/bin/codium
+      register: codium_bin
+
+    - name: Fail if codium not present
+      ansible.builtin.assert:
+        that: codium_bin.stat.exists
+        fail_msg: Something went wrong during VSCodium installation
+        success_msg: Codium binary is present

@@ -3,7 +3,7 @@
 
 - name: RedHat OS family installation
   when: ansible_os_family == 'RedHat'
-  become: true
+  #become: true
   block:
 
     - name: Import VSCodium gpg key to rpm db
@@ -15,7 +15,7 @@
       ansible.builtin.yum_repository:
         name: gitlab.com_paulcarroty_vscodium_repo
         description: VSCodium repository created by Ansible
-        baseurl: "{{ vscodium_repo_baseurl }}"
+        baseurl: "{{ vscodium_rpm_repo_baseurl }}"
         enabled: true
         gpgcheck: true
         repo_gpgcheck: true
@@ -26,6 +26,26 @@
       ansible.builtin.dnf:
         name: codium
         state: present
+
+- name: Debian OS family installation
+  when: ansible_os_family == 'Debian'
+  #become: true
+  block:
+
+    - name: Import VSCodium gpg key to keyring
+      ansible.builtin.apt_key:
+        url: "{{ vscodium_gpg_key }}"
+        state: present
+
+    - name: Add repository
+      ansible.builtin.apt_repository:
+        repo: "deb {{ vscodium_deb_repo_baseurl }} vscodium main"
+        state: present
+
+    - name: Install VSCodium
+      ansible.builtin.apt:
+        name: codium
+        update_cache: true
 
 - name: "Check existance of path: {{ unix_vscodium_user_config }}"
   ansible.builtin.file:

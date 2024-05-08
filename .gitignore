@@ -5,3 +5,6 @@
 
 ### code ###
 .vscode
+
+### Python ###
+.venv
