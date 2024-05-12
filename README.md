@@ -12,14 +12,17 @@ At the moment only OS families base on `Debian` and `RedHat` are supported.The f
 
 Linux distributions:
 - Ubuntu
-  - 24.04(Noble Numbat)
+  - 24.04 LTS (Noble Numbat)
+  - 22.04 LTS (Jammy Jellyfish)
 - Debian
   - 12(Bookworm)
   - 11(Bullseye)
-- Almalinux
+- Rocky
   - 9
+  - 8
 - Fedora
   - 40
+  - 39
 
 Role Variables
 --------------
