@@ -6,5 +6,5 @@
 
     - name: Run ansible role VSCodium installer
       ansible.builtin.include_role:
-        name: guillermo.vscodium
+        name: guillermodotn.vscodium
 
