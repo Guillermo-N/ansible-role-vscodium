@@ -35,6 +35,7 @@
     - name: Import VSCodium gpg key to keyring
       ansible.builtin.apt_key:
         url: "{{ vscodium_gpg_key }}"
+        validate_certs: false # Ubuntu 22.04
         state: present
 
     - name: Add repository
