@@ -1,10 +1,8 @@
 galaxy_info:
   role_name: vscodium
-  namespace: guillermodotn
+  namespace: guillermo
   author: Guillermo N.
-  description: your role description
-  company: your company (optional)
-
+  description: VSCodium Installer
 
   license: MIT
 
