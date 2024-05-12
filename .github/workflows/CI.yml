@@ -15,11 +15,17 @@ jobs:
       matrix:
         distro:
           - name: fedora
+            tag: 39
+          - name: fedora
             tag: 40
-          - name: almalinux
+          - name: rockylinux
+            tag: 8
+          - name: rockylinux
             tag: 9
           - name: ubuntu
-            tag: 24.04
+            tag: jammy
+          - name: ubuntu
+            tag: noble
           - name: debian
             tag: bookworm
           - name: debian
