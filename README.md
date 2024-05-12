@@ -84,4 +84,4 @@ MIT
 Author Information
 ------------------
 
-[Guillermo N.](https://github.com/Guillermo-N)
+[Guillermo N.](https://github.com/guillermodotn)
