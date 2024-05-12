@@ -1,6 +1,6 @@
 ---
 name: Ansible Galaxy Import
-'on':
+on:
   push:
     tags:
       - '^v*'
