@@ -3,7 +3,7 @@ name: Ansible Galaxy Import
 on:
   push:
     tags:
-      - '^v*'
+      - v*
 
 jobs:
   release:
