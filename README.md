@@ -1,7 +1,7 @@
 VSCodium Installer
 =========
 
-[![Molecule Test](https://github.com/Guillermo-N/ansible-vscodium-installer/actions/workflows/CI.yml/badge.svg)](https://github.com/Guillermo-N/ansible-vscodium-installer/actions/workflows/CI.yml)
+[![Molecule Test](https://github.com/Guillermo-N/ansible-role-vscodium/actions/workflows/CI.yml/badge.svg)](https://github.com/Guillermo-N/ansible-role-vscodium/actions/workflows/CI.yml)
 
 Automates the setup of [VSCodium](https://vscodium.com/), adding repositories, installing the software, and applying custom configurations.
 
@@ -50,10 +50,6 @@ Role Variables
 - **Required**: No
 - **Default**: `""` (empty string)
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
