@@ -10,7 +10,7 @@ Requirements
 
 At the moment only OS families base on `Debian` and `RedHat` are supported.The following list shows the distributions used for testing, in which the role will work. Other versions and distributions may also work.
 
-Linux distributions:
+### Linux distributions:
 - Ubuntu
   - 24.04 LTS (Noble Numbat)
   - 22.04 LTS (Jammy Jellyfish)
@@ -23,6 +23,7 @@ Linux distributions:
 - Fedora
   - 40
   - 39
+
 
 Role Variables
 --------------
