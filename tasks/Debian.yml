@@ -1,0 +1,22 @@
+---
+- name: Debian OS family installation
+  become: true
+  block:
+
+    - name: Import VSCodium gpg key to keyring
+      ansible.builtin.apt_key:
+        url: "{{ vscodium_gpg_key }}"
+        id: "{{ vscodium_gpg_key_fingerprint | regex_replace('\\s', '') }}"
+        state: present
+
+    - name: Add repository
+      ansible.builtin.apt_repository:
+        repo: "deb {{ vscodium_deb_repo_baseurl }} vscodium main"
+        filename: vscodium
+        update_cache: true
+        state: present
+
+    - name: Install VSCodium
+      ansible.builtin.apt:
+        name: codium
+        update_cache: true

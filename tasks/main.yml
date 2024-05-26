@@ -1,54 +1,10 @@
 ---
 # tasks file for ansible-vscodium-installer
 
-- name: RedHat OS family installation
-  when: ansible_os_family == 'RedHat'
-  become: true
-  block:
+- name: "{{ ansible_os_family }} OS family installation"
+  include_tasks: "{{ ansible_os_family }}.yml"
 
-    - name: Import VSCodium gpg key to rpm db
-      ansible.builtin.rpm_key:
-        key: "{{ vscodium_gpg_key }}"
-        fingerprint: "{{ vscodium_gpg_key_fingerprint }}"
-
-    - name: Add repository
-      ansible.builtin.yum_repository:
-        name: gitlab.com_paulcarroty_vscodium_repo
-        description: VSCodium repository created by Ansible
-        baseurl: "{{ vscodium_rpm_repo_baseurl }}"
-        enabled: true
-        gpgcheck: true
-        repo_gpgcheck: true
-        gpgkey: "{{ vscodium_gpg_key }}"
-        metadata_expire: 3600
-
-    - name: Install VSCodium
-      ansible.builtin.dnf:
-        name: codium
-        state: present
-
-- name: Debian OS family installation
-  when: ansible_os_family == 'Debian'
-  become: true
-  block:
-
-    - name: Import VSCodium gpg key to keyring
-      ansible.builtin.apt_key:
-        url: "{{ vscodium_gpg_key }}"
-        id: "{{ vscodium_gpg_key_fingerprint | regex_replace('\\s', '') }}"
-        state: present
-
-    - name: Add repository
-      ansible.builtin.apt_repository:
-        repo: "deb {{ vscodium_deb_repo_baseurl }} vscodium main"
-        filename: vscodium
-        update_cache: true
-        state: present
-
-    - name: Install VSCodium
-      ansible.builtin.apt:
-        name: codium
-        update_cache: true
+# Common tasks for configuration
 
 - name: "Check existance of path: {{ unix_vscodium_user_config }}"
   ansible.builtin.file:
