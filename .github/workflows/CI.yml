@@ -18,8 +18,8 @@ jobs:
             tag: 39
           - name: fedora
             tag: 40
-          - name: rockylinux
-            tag: 8
+          # - name: rockylinux
+          #   tag: 8
           - name: rockylinux
             tag: 9
           - name: ubuntu
